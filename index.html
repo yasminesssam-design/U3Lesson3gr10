@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>منصة محترف | التهديدات والتدابير المضادة في أمن المعلومات ③</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#08112b; --bg2:#0f1f4d; --panel:#13245a; --panel2:#1a3070; --line:#2d4a99;
+  --cyan:#22d3ee; --amber:#fbbf24; --green:#22c55e; --red:#ef4444; --pink:#f472b6;
+  --text:#f2f6ff; --muted:#b8c6f0;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{font-size:20px;-webkit-text-size-adjust:100%}
+body{font-family:'Tajawal','Segoe UI',Tahoma,Arial,sans-serif;color:var(--text);min-height:100vh;
+  background:linear-gradient(135deg,#08112b,#0f1f4d,#0b2a5a,#08112b);background-size:400% 400%;animation:bgmove 22s ease infinite;overflow-x:hidden;line-height:1.75}
+@keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+#floaters{position:fixed;inset:0;pointer-events:none;z-index:0;overflow:hidden}
+#floaters span{position:absolute;bottom:-60px;opacity:.16;animation:floatUp linear infinite;filter:drop-shadow(0 0 8px #22d3ee)}
+@keyframes floatUp{to{transform:translateY(-115vh) rotate(360deg)}}
+.grid-bg{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(34,211,238,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,.06) 1px,transparent 1px);background-size:46px 46px;animation:gridmove 14s linear infinite}
+@keyframes gridmove{to{background-position:46px 46px}}
+.app{position:relative;z-index:1;max-width:1050px;margin:0 auto;padding:16px 16px 60px}
+button{font-family:inherit;cursor:pointer;border:none;color:inherit}
+:focus-visible{outline:3px solid var(--amber);outline-offset:3px}
+
+/* logo */
+.logo{display:inline-flex;align-items:center;gap:10px;direction:ltr}
+.logo svg{width:54px;height:54px;flex:none}
+.logo .lt{display:flex;flex-direction:column;line-height:1.05;text-align:left}
+.logo .l1{font-weight:900;font-size:1.5rem;letter-spacing:.5px;color:#fff}
+.logo .l2{font-weight:700;font-size:.8rem;color:var(--cyan);letter-spacing:2px}
+.topbar{display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:10px}
+
+/* hero */
+.hero{text-align:center;padding:24px 14px 8px}
+.hero .unit{display:inline-block;background:rgba(251,191,36,.15);border:2px solid var(--amber);color:var(--amber);font-weight:800;padding:4px 18px;border-radius:40px;font-size:1rem}
+.hero h1{font-size:2.3rem;font-weight:900;margin:14px 0 4px;line-height:1.4;text-shadow:0 0 22px rgba(34,211,238,.5)}
+.hero h2{font-size:1.5rem;font-weight:700;color:var(--cyan);direction:ltr;line-height:1.4}
+.shield{font-size:5rem;display:block;animation:pulse 2.6s ease-in-out infinite;filter:drop-shadow(0 0 20px #22d3ee)}
+@keyframes pulse{50%{transform:scale(1.1)}}
+.section-title{font-size:1.5rem;font-weight:900;margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+.section-title::after{content:"";flex:1;height:3px;background:linear-gradient(90deg,var(--cyan),transparent);border-radius:3px}
+.bigbtns{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px}
+.bigbtn{padding:22px 18px;border-radius:22px;font-size:1.35rem;font-weight:800;text-align:center;line-height:1.5;color:#fff;
+  box-shadow:0 8px 0 rgba(0,0,0,.35),0 14px 30px rgba(0,0,0,.35);transition:.15s;border:3px solid rgba(255,255,255,.25)}
+.bigbtn:hover{transform:translateY(-4px)}
+.bigbtn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.35)}
+.bigbtn small{display:block;font-weight:500;font-size:.85rem;opacity:.92}
+.b-ar{background:linear-gradient(135deg,#0ea5a4,#0891b2)}
+.b-en{background:linear-gradient(135deg,#6366f1,#7c3aed)}
+.b-ex1{background:linear-gradient(135deg,#f59e0b,#ea580c)}
+.b-ex2{background:linear-gradient(135deg,#ec4899,#be185d)}
+.b-ex3{background:linear-gradient(135deg,#16a34a,#15803d)}
+
+/* lesson */
+.lbar{position:sticky;top:0;z-index:20;background:rgba(8,17,43,.92);backdrop-filter:blur(8px);padding:10px 8px;border-radius:0 0 18px 18px;border-bottom:3px solid var(--cyan);margin:0 -8px 14px}
+.lbar .row{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.pill{padding:8px 18px;border-radius:40px;font-weight:800;font-size:1rem;background:var(--panel2);border:2px solid var(--line);color:#fff;transition:.15s}
+.pill:hover{background:var(--line)}
+.pill.on{background:var(--cyan);color:#062033;border-color:#fff}
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tabs .pill{flex:1;min-width:130px;text-align:center}
+.card{background:linear-gradient(160deg,var(--panel),var(--panel2));border:2px solid var(--line);border-radius:22px;padding:18px 20px;margin:14px 0;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.card h3{font-size:1.5rem;font-weight:900;color:var(--amber);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+.card h3 .ic{font-size:2rem}
+.card p,.card li{font-size:1.2rem}
+.card ul{padding-inline-start:26px;margin:6px 0}
+.card li{margin:4px 0}
+.def{border-inline-start:6px solid var(--cyan);padding:8px 14px;background:rgba(34,211,238,.08);border-radius:10px;margin:8px 0}
+.ex{border-inline-start:6px solid var(--green);padding:8px 14px;background:rgba(34,197,94,.10);border-radius:10px;margin:8px 0}
+.goal{border-inline-start:6px solid var(--pink);padding:8px 14px;background:rgba(244,114,182,.10);border-radius:10px;margin:8px 0}
+.tag{display:inline-block;font-weight:900;padding:1px 12px;border-radius:30px;margin-inline-end:6px;font-size:1rem}
+.tag.d{background:var(--cyan);color:#062033}.tag.e{background:var(--green);color:#052b12}.tag.g{background:var(--pink);color:#3a0620}
+.key{color:var(--amber);font-weight:800}
+.intro{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:700px){.intro{grid-template-columns:1fr}.hero h1{font-size:1.7rem}html{font-size:18px}}
+.practice{background:linear-gradient(135deg,rgba(251,191,36,.18),rgba(244,114,182,.15));border:3px dashed var(--amber);border-radius:22px;padding:16px;margin:22px 0;text-align:center}
+.practice h4{font-size:1.4rem;font-weight:900;margin-bottom:10px}
+.practice .bigbtns{grid-template-columns:repeat(auto-fit,minmax(230px,1fr))}
+.practice .bigbtn{font-size:1.2rem;padding:16px}
+table.terms{width:100%;border-collapse:separate;border-spacing:0 6px;font-size:1.15rem}
+table.terms td{padding:10px 14px;background:var(--panel2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+table.terms td:first-child{border-radius:0 12px 12px 0;font-weight:800;color:var(--cyan);direction:ltr;text-align:left}
+table.terms td:last-child{border-radius:12px 0 0 12px;font-weight:700}
+[dir=ltr] table.terms td:first-child{border-radius:12px 0 0 12px}[dir=ltr] table.terms td:last-child{border-radius:0 12px 12px 0}
+/* pyramid */
+.pyr{display:flex;flex-direction:column;gap:10px;margin:12px 0}
+.pyr .lvl{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.pyr .shape{flex:none;color:#fff;font-weight:900;text-align:center;padding:10px;font-size:1.05rem;clip-path:polygon(var(--c1) 0,var(--c2) 0,100% 100%,0 100%)}
+.pyr .desc{flex:1;min-width:220px;background:rgba(255,255,255,.08);border:2px solid var(--line);border-radius:14px;padding:8px 12px;font-size:1.1rem}
+.dual{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+.dual>.col{min-width:0}
+.colhead{text-align:center;font-weight:900;font-size:1.25rem;padding:8px;border-radius:14px;margin-bottom:4px;color:#fff}
+.colhead.a{background:linear-gradient(135deg,#0ea5a4,#0891b2)}.colhead.e{background:linear-gradient(135deg,#6366f1,#7c3aed)}
+.dual .card{padding:14px 16px}
+.dual .card h3{font-size:1.2rem}.dual .card h3 .ic{font-size:1.6rem}
+.dual .card p,.dual .card li,.dual .def,.dual .ex,.dual .goal{font-size:1.05rem}
+.dual .intro{grid-template-columns:1fr}
+.dual .pyr .shape{width:100%!important}
+.tabs .pill small{display:block;font-weight:600;font-size:.8rem;opacity:.9;direction:ltr}
+@media(max-width:900px){.dual{grid-template-columns:1fr}}
+.foot{text-align:center;color:var(--muted);margin-top:34px;font-size:.95rem}
+
+/* quiz overlay */
+.overlay{position:fixed;inset:0;z-index:100;background:linear-gradient(135deg,#08112b,#10265f,#08112b);overflow-y:auto;display:none}
+.overlay.show{display:block}
+.qwrap{max-width:900px;margin:0 auto;padding:14px 16px 60px}
+.qtop{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:10px}
+.xbtn{background:var(--red);color:#fff;font-weight:900;border-radius:14px;padding:8px 16px;font-size:1rem}
+.qtitle{font-weight:800;color:var(--cyan);font-size:1.05rem;flex:1;text-align:center}
+.prog{height:16px;border-radius:20px;background:rgba(255,255,255,.12);overflow:hidden;border:2px solid var(--line)}
+.prog i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--cyan),var(--green));transition:width .4s}
+.qstats{display:flex;justify-content:space-between;margin:8px 4px 0;font-weight:800;font-size:1.1rem}
+.qbox{background:linear-gradient(160deg,var(--panel),var(--panel2));border:3px solid var(--line);border-radius:26px;padding:22px;margin-top:14px;box-shadow:0 10px 30px rgba(0,0,0,.4)}
+.qbox.shake{animation:shake .5s}
+.qbox.glow{animation:glow .8s}
+@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-14px)}40%{transform:translateX(14px)}60%{transform:translateX(-10px)}80%{transform:translateX(10px)}}
+@keyframes glow{0%{box-shadow:0 0 0 rgba(34,197,94,0)}40%{box-shadow:0 0 60px 12px rgba(34,197,94,.75)}100%{box-shadow:0 10px 30px rgba(0,0,0,.4)}}
+.qnum{display:inline-block;background:var(--amber);color:#3a2600;font-weight:900;border-radius:30px;padding:2px 16px;font-size:1.05rem;margin-bottom:8px}
+.qhint{color:var(--pink);font-weight:800;font-size:1.05rem;margin-bottom:6px}
+.qctx{background:rgba(34,211,238,.09);border-inline-start:6px solid var(--cyan);padding:10px 14px;border-radius:12px;font-size:1.1rem;margin-bottom:12px}
+.qtext{font-size:1.75rem;font-weight:800;line-height:1.7;margin-bottom:16px}
+.opts{display:flex;flex-direction:column;gap:12px}
+.opt{display:flex;align-items:center;gap:14px;text-align:start;background:rgba(255,255,255,.08);border:3px solid var(--line);border-radius:18px;padding:14px 16px;font-size:1.4rem;font-weight:700;line-height:1.55;transition:.15s;color:#fff;width:100%}
+.opt:hover:not(:disabled){background:rgba(34,211,238,.18);border-color:var(--cyan);transform:scale(1.015)}
+.opt .lb{flex:none;min-width:2.3rem;height:2.3rem;display:grid;place-items:center;background:var(--cyan);color:#062033;border-radius:50%;font-weight:900;font-size:1.15rem}
+.opt.sel{border-color:var(--amber);background:rgba(251,191,36,.2)}
+.opt.right{background:rgba(34,197,94,.35);border-color:var(--green);animation:pop .5s}
+.opt.wrong{background:rgba(239,68,68,.35);border-color:var(--red);animation:shake .5s}
+.opt.right .lb{background:var(--green);color:#fff}.opt.wrong .lb{background:var(--red);color:#fff}
+.opt:disabled{cursor:default}
+@keyframes pop{0%{transform:scale(1)}50%{transform:scale(1.05)}100%{transform:scale(1)}}
+.fb{margin-top:16px;border-radius:18px;padding:14px 18px;font-size:1.4rem;font-weight:800;display:flex;gap:12px;align-items:center}
+.fb .em{font-size:3rem;animation:pop .6s}
+.fb.ok{background:rgba(34,197,94,.25);border:3px solid var(--green)}
+.fb.no{background:rgba(239,68,68,.25);border:3px solid var(--red)}
+.nextbtn,.confirm{display:block;width:100%;margin-top:16px;padding:16px;border-radius:18px;font-size:1.4rem;font-weight:900;color:#fff;background:linear-gradient(135deg,var(--cyan),#2563eb);box-shadow:0 6px 0 rgba(0,0,0,.35)}
+.confirm{background:linear-gradient(135deg,var(--amber),#f97316);color:#2b1a00}
+.nextbtn:active,.confirm:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(0,0,0,.35)}
+.emoji-burst{position:fixed;font-size:2.6rem;pointer-events:none;z-index:300;animation:burst 1.6s ease-out forwards}
+@keyframes burst{0%{transform:translate(0,0) scale(.4);opacity:1}100%{transform:translate(var(--dx),var(--dy)) scale(1.4);opacity:0}}
+#confetti{position:fixed;inset:0;pointer-events:none;z-index:250}
+.res{text-align:center}
+.res .big{font-size:6rem;animation:pulse 1.6s infinite}
+.res .score{font-size:3rem;font-weight:900;color:var(--amber)}
+.res .stars{font-size:2.6rem;letter-spacing:6px}
+.res .msg{font-size:1.5rem;font-weight:800;margin:8px 0}
+.wrongs{text-align:start;margin-top:14px;background:rgba(239,68,68,.12);border:2px solid var(--red);border-radius:16px;padding:10px 16px;font-size:1.05rem}
+.actions{display:grid;gap:12px;margin-top:18px}
+.wa{background:linear-gradient(135deg,#25d366,#128c7e);color:#fff}
+.namebox{max-width:560px;margin:40px auto;text-align:center}
+.namebox input{width:100%;font-family:inherit;font-size:1.6rem;font-weight:800;padding:16px;border-radius:18px;border:4px solid var(--cyan);background:#0a1a44;color:#fff;text-align:center;margin:16px 0}
+@media(prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;animation-iteration-count:1!important}}
+</style>
+</head>
+<body>
+<div class="grid-bg"></div>
+<div id="floaters"></div>
+<canvas id="confetti"></canvas>
+
+<div class="app" id="app"></div>
+<div class="overlay" id="quiz"><div class="qwrap" id="qwrap"></div></div>
+
+<script>
+/* ============ CONFIG ============ */
+const WA_NUMBER = "201099920517";      // 01099920517
+const LOGO_SRC  = "";                  // ضع هنا رابط أو base64 لصورة شعار محترف لو أردت استبدال الشعار المرسوم
+
+/* ============ LOGO ============ */
+function logo(){
+  if(LOGO_SRC) return `<span class="logo"><img src="${LOGO_SRC}" alt="Mohtarf" style="height:56px"></span>`;
+  return `<span class="logo" aria-label="منصة محترف Mohtarf">
+  <svg viewBox="0 0 64 64"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset="1" stop-color="#6366f1"/></linearGradient></defs>
+  <path d="M32 3 56 12v20c0 14-10 24-24 29C18 56 8 46 8 32V12z" fill="url(#lg)" stroke="#fff" stroke-width="2.5"/>
+  <path d="M19 44V22l13 13 13-13v22" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  <span class="lt"><span class="l1">Mohtarf</span><span class="l2">منصة محترف</span></span></span>`;
+}
+
+/* ============ TERMS ============ */
+const T = {
+  billing:['فاتورة احتيالية','Fraudulent billing'], oneclick:['الاحتيال بنقرة واحدة','One-click fraud'],
+  phishing:['التصيد','Phishing'], social:['الهندسة الاجتماعية','Social engineering'],
+  imperson:['انتحال الشخصية','Impersonation'], shoulder:['التجسس المباشر','Shoulder surfing'],
+  dumpster:['البحث في المهملات','Dumpster diving'], skim:['التزوير','Skimming'],
+  policy:['سياسة أمن المعلومات','Information security policy'], basic:['السياسة الأساسية','Basic policy'],
+  standards:['معايير الأمان','Security standards'], procedures:['الإجراءات','Procedures'],
+  procs:['إجراءات التنفيذ','Implementation procedures'], oprules:['قواعد التشغيل','Operational rules'],
+  both_bc:['كل من ب ، ج','Both b and c'], security:['الأمن','Security'],
+  firewall:['جدار الحماية','Firewall'], antivirus:['مكافحة الفيروسات','Antivirus'], auth:['المصادقة','Authentication']
+};
+const TF = [['(✓) صح','(✓) True'],['(✗) خطأ','(✗) False']];
+const tf = (ar,en,ok)=>[ar,en,TF,[ok?0:1],{lbl:'none'}];
+
+const PASS_AR = "مع ازدياد عدد مستخدمي الإنترنت تتزايد أيضاً حالات الاحتيال التي تتضمن إساءة استخدام أجهزة الكمبيوتر والهواتف الذكية. على سبيل المثال، هناك عمليات احتيال يتم فيها اعتبار مجرد النقر على رابط URL على موقع ويب بمثابة موافقة على عقد خدمة، ويُطلب مبلغ مالي كبير [١]، أو رسائل بريد إلكتروني تتظاهر بأنها من مؤسسات مالية تقود المستخدمين إلى مواقع ويب مزيفة لسرقة أرقام التعريف الشخصي (PINs) أو أرقام بطاقات الائتمان [٢]. توجد طرق خداعية مختلفة. بالإضافة إلى ذلك، فإن (أ) استغلال الثغرات في النفس البشرية أو الإهمال يمكن أن يؤدي أيضاً إلى الاستحواذ غير المصرح به على المعلومات.";
+const PASS_EN = "As the number of Internet users increases, fraud cases involving the misuse of computers and smartphones also increase. For example, there are frauds in which merely clicking a URL link on a website is considered agreement to a service contract, and a large sum of money is demanded [1], or e-mails that pretend to be from financial institutions lead users to fake websites to steal personal identification numbers (PINs) or credit card numbers [2]. There are various deceptive methods. In addition, (A) exploiting weaknesses in human nature or carelessness can also lead to unauthorized acquisition of information.";
+const FIVE = ['oneclick','billing','phishing','social','skim'];
+
+/* ============ ARABIC FILE QUESTIONS (71) ============
+ item = [ar, en, options, answerIndexes, {ctx:[ar,en], lbl}]  */
+const AQ = [
+/*0*/ ["من بين الخيارات (أ) إلى (ث) اختر الخيار الذي يصف بشكل صحيح التصيد.","Among options (A) to (D), choose the option that correctly describes phishing.",
+ [["برنامج يسرق المعلومات الشخصية من داخل كمبيوتر دون علم المستخدم ويرسلها إلى طرف ثالث.","A program that steals personal information from inside a computer without the user's knowledge and sends it to a third party."],
+  ["التظاهر بأنه بريد إلكتروني من مؤسسة مالية لإغراء شخص ما بالدخول إلى موقع ويب مزيف والحصول بشكل غير قانوني على رمز PIN أو رقم بطاقة الائتمان الخاصة به.","Pretending to be an email from a financial institution to lure someone into a fake website and illegally obtaining their PIN or credit card number."],
+  ["النقر فوق رابط (URL) مرة واحدة في موقع ويب أو بريد إلكتروني يؤدي إلى إعلان زائف عن عقد وطلب دفع كبير.","Clicking a link (URL) once in a website or email leads to a fake announcement of a contract and a large payment request."],
+  ["يتم فوترتك مقابل خدمة لا تعترف بها ويتم الاحتيال عليك للحصول على المال.","You are billed for a service you do not recognize and are defrauded to get your money."]],[1],{lbl:'k'}],
+/*1*/ ["من الخيارات (أ) إلى (ث)، حدد كل ما يتوافق مع الهندسة الاجتماعية. (اختر أكثر من إجابة)","From options (A) to (D), select everything that corresponds to social engineering. (choose more than one answer)",
+ [["تعطيل الوصول إلى البيانات على كمبيوتر والمطالبة بفدية لاستعادتها.","Blocking access to data on a computer and demanding a ransom to restore it."],
+  ["إنشاء موقع ويب مزيف يتظاهر بأنه بنك لسرقة رمز PIN لحساب بنكي.","Creating a fake website pretending to be a bank to steal the PIN of a bank account."],
+  ["التنصت على المحادثات مع مستخدمين آخرين.","Eavesdropping on conversations with other users."],
+  ["البحث في المهملات للحصول على معلومات سرية تم التخلص منها.","Searching the trash for secret information that was thrown away."]],[2,3],{lbl:'k'}],
+/*2*/ ["جرب بنفسك: اكتب المصطلح الذي يناسب الفراغ [١] بشكل أفضل.","Try it yourself: choose the term that best fits blank [1].",FIVE,[0],{ctx:[PASS_AR,PASS_EN]}],
+/*3*/ ["جرب بنفسك: اكتب المصطلح الذي يناسب الفراغ [٢] بشكل أفضل.","Try it yourself: choose the term that best fits blank [2].",FIVE,[2],{ctx:[PASS_AR,PASS_EN]}],
+/*4*/ ["جرب بنفسك: ما هو المصطلح المستخدم لوصف نوع النشاط المذكور في الجزء الذي تحته خط (أ)؟","Try it yourself: What is the term used to describe the type of activity mentioned in the underlined part (A)?",FIVE,[3],{ctx:[PASS_AR,PASS_EN]}],
+/*5*/ ["جرب بنفسك: من بين الخيارات ① إلى ④، اختر كل ما يتعلق بالإجابة في السؤال السابق (الهندسة الاجتماعية). (اختر أكثر من إجابة)","Try it yourself: Among options 1 to 4, choose everything related to the answer of the previous question (social engineering). (choose more than one answer)",
+ [["يمكن للأفراد التواصل مع بعضهم البعض عبر الإنترنت.","Individuals can communicate with each other via the Internet."],
+  ["يتم منع الوصول إلى البيانات الموجودة على جهاز الكمبيوتر، ويُطلب فدية لاستعادتها.","Access to the data on the computer is blocked, and a ransom is demanded to restore it."],
+  ["التنصت على المحادثات مع المستخدمين الآخرين.","Eavesdropping on conversations with other users."],
+  ["التلصص أثناء قيام شخص ما بإدخال هوية المستخدم أو كلمة المرور الخاصة به.","Peeking while someone enters the user's ID or password."]],[2,3],{lbl:'n'}],
+/*6*/ ["تمرين ①: فرض رسوم عليك بمجرد النقر على رابط، كما لو كنت قد انضممت أو وقعت عقداً. اختر الوصف المناسب.","Exercise 1: Fees are imposed on you merely by clicking a link, as if you had joined or signed a contract. Choose the suitable item.",
+ [T.phishing,T.oneclick,T.skim,T.policy,T.social].map((x,i)=>x),[1],{lbl:'k',keys:['phishing','oneclick','skim','policy','social']}],
+/*7*/ ["تمرين ②: التظاهر بأنك مؤسسة مالية لخداع المستخدمين وجعلهم يدخلون هوية المستخدم وكلمة المرور الخاصة بهم، والتي يتم إساءة استخدامها بعد ذلك. اختر الوصف المناسب.","Exercise 2: Pretending to be a financial institution to trick users into entering their user ID and password, which are then misused. Choose the suitable item.",
+ null,[0],{lbl:'k',keys:['phishing','oneclick','skim','policy','social']}],
+/*8*/ ["تمرين ③: سياسة أساسية تضعها شركة أو مؤسسة للحفاظ على أمن المعلومات. اختر الوصف المناسب.","Exercise 3: A basic policy set by a company or organization to maintain information security. Choose the suitable item.",
+ null,[3],{lbl:'k',keys:['phishing','oneclick','skim','policy','social']}],
+/*9*/ ["تمرين ④: الاستخراج غير القانوني للمعلومات من بطاقة ائتمان أو بطاقة بنكية لشخص آخر. اختر الوصف المناسب.","Exercise 4: The illegal extraction of information from another person's credit card or bank card. Choose the suitable item.",
+ null,[2],{lbl:'k',keys:['phishing','oneclick','skim','policy','social']}],
+/*10*/ ["تمرين: من بين الخيارات ① إلى ④ اختر كل ما يندرج تحت الهندسة الاجتماعية. (اختر أكثر من إجابة)","Exercise: Among options 1 to 4, choose everything that falls under social engineering. (choose more than one answer)",
+ [["الاتصال من الخارج مع التظاهر بأنك موظف، من أجل استخلاص معلومات داخلية سرية.","Calling from outside while pretending to be an employee, in order to extract secret internal information."],
+  ["أن يتم مطالبتك بدفع فاتورة لخدمة وهمية لا تعرفها ويتم الاحتيال عليك وسرقة أموالك.","Being asked to pay a bill for a fake service you do not know, being defrauded and having your money stolen."],
+  ["البحث في القمامة للحصول على معلومات سرية تم التخلص منها.","Searching the trash for secret information that was thrown away."],
+  ["تشغيل برنامج يتسبب في تحميل برامج ضارة دون علم المستخدم.","Running a program that causes malicious software to be downloaded without the user's knowledge."]],[0,2],{lbl:'n'}],
+/* تدريبات الفائز - السؤال الأول (11-25) */
+/*11*/ ["١- احتيال يصدر فيه فاتورة مقابل خدمة وهمية.","1- A fraud in which a bill is issued for a fake service.",['phishing','billing','skim','oneclick'],[1]],
+/*12*/ ["٢- احتيال يتم عن طريق النقر على رابط يؤدي إلى طلب دفع مبالغ.","2- A fraud done by clicking a link that leads to a request to pay money.",['oneclick','imperson','shoulder','dumpster'],[0]],
+/*13*/ ["٣- احتيال باستخدام مواقع ويب مزيفة لسرقة المعلومات الشخصية.","3- A fraud using fake websites to steal personal information.",['oneclick','skim','billing','phishing'],[3]],
+/*14*/ ["٤- طريقة للحصول على المعلومات عن طريق استغلال علم النفس البشري.","4- A method of obtaining information by exploiting human psychology.",['social','skim','dumpster','shoulder'],[0]],
+/*15*/ ["٥- التظاهر بأنك شخص آخر للحصول على معلومات.","5- Pretending to be another person to obtain information.",['shoulder','imperson','phishing','skim'],[1]],
+/*16*/ ["٦- التلصص على شاشة أو لوحة مفاتيح شخص لسرقة معلومات.","6- Peeking at a person's screen or keyboard to steal information.",['shoulder','dumpster','oneclick','social'],[0]],
+/*17*/ ["٧- Dumper diving للحصول على معلومات سرية.","7- Dumper diving to obtain secret information.",['phishing','skim','dumpster','imperson'],[2]],
+/*18*/ ["٨- استخراج بيانات بطاقات ائتمان لاستخدامها في إنشاء بطاقات مزورة.","8- Extracting credit card data to use it in creating counterfeit cards.",['skim','shoulder','phishing','billing'],[0]],
+/*19*/ ["٩- مجموعة قواعد وإرشادات للحفاظ على أمن المعلومات في المنظمة.","9- A set of rules and guidelines to maintain information security in the organization.",['policy','firewall','antivirus','auth'],[0]],
+/*20*/ ["١٠- تصف المبادئ الأساسية والإعلانات المتعلقة بأمن المعلومات الخاصة بالمنظمة.","10- Describes the basic principles and declarations related to the organization's information security.",['phishing','basic','procedures','security'],[1]],
+/*21*/ ["١١- تحدد القواعد اللازمة لتطبيق سياسة أمن المعلومات عملياً.","11- Sets the rules needed to apply the information security policy in practice.",['procedures','standards','policy','skim'],[1]],
+/*22*/ ["١٢- توضح الإجراءات اللازمة بناءً على الجمهور المستهدف والغرض المقصود.","12- Clarifies the necessary procedures based on the target audience and the intended purpose.",['imperson','procs','oprules','both_bc'],[3]],
+/*23*/ ["١٣- استخدام علم النفس البشري في الاحتيال يُعرف بـ.....","13- Using human psychology in fraud is known as .....",['social','shoulder','skim','dumpster'],[0]],
+/*24*/ ["١٤- التزوير على البطاقات الائتمانية يُعرف بـ...","14- Skimming on credit cards is known as ...",['shoulder','skim','imperson','phishing'],[1]],
+/*25*/ ["١٥- النقر على رابط يؤدي مباشرة إلى طلب دفع يُسمى...","15- Clicking a link that leads directly to a payment request is called ...",['billing','oneclick','skim','dumpster'],[1]],
+/* السؤال الثاني: صح أو خطأ (26-45) */
+/*26*/ tf("١- فاتورة احتيالية هي فاتورة صادرة مقابل خدمة وهمية بهدف الاحتيال.","1- A fraudulent bill is a bill issued for a fake service with the aim of fraud.",true),
+/*27*/ tf("٢- احتيال بنقرة واحدة يحدث عندما يتم النقر على رابط يؤدي تلقائياً إلى طلب دفع.","2- One-click fraud happens when a link is clicked that automatically leads to a payment request.",true),
+/*28*/ tf("٣- التصيد (Phishing) يعتمد على استخدام مواقع ويب شرعية للحصول على معلومات المستخدمين.","3- Phishing depends on using legitimate websites to obtain users' information.",false),
+/*29*/ tf("٤- الهندسة الاجتماعية تعتمد على استغلال علم النفس البشري للحصول على المعلومات بطريقة احتيالية.","4- Social engineering depends on exploiting human psychology to obtain information in a fraudulent way.",true),
+/*30*/ tf("٥- انتحال الشخصية هو التظاهر بأنك شخص آخر بهدف الاحتيال على المستخدمين.","5- Impersonation is pretending to be someone else in order to defraud users.",true),
+/*31*/ tf("٦- التلصص على الشاشة أو لوحة المفاتيح يسمى البحث في المهملات.","6- Peeking at the screen or keyboard is called dumpster diving.",false),
+/*32*/ tf("٧- البحث في المهملات للحصول على معلومات سرية يسمى Dumper diving.","7- Searching the trash to obtain secret information is called Dumper diving.",true),
+/*33*/ tf("٨- التزوير (Skimming) هو استخراج البيانات بطريقة قانونية من بطاقات الائتمان.","8- Skimming is extracting data legally from credit cards.",false),
+/*34*/ tf("٩- سياسة أمن المعلومات هي مجموعة من القواعد والإرشادات للحفاظ على أمن المعلومات في المنظمة.","9- An information security policy is a set of rules and guidelines to maintain information security in the organization.",true),
+/*35*/ tf("١٠- السياسة الأساسية تصف المبادئ الأساسية وأمن المعلومات الخاصة بالمنظمة.","10- The basic policy describes the basic principles and information security of the organization.",true),
+/*36*/ tf("١١- معايير الأمان تحدد الإجراءات اللازمة للجمهور المستهدف فقط دون قواعد عملية.","11- Security standards define the necessary procedures for the target audience only, without practical rules.",false),
+/*37*/ tf("١٢- إجراءات التنفيذ وقواعد التشغيل توضح الإجراءات بناءً على الجمهور والغرض المقصود.","12- Implementation procedures and operational rules clarify the procedures based on the audience and the intended purpose.",true),
+/*38*/ tf("١٣- الاحتيال بنقرة واحدة يحدث عند النقر على رابط يؤدي إلى رسالة تزعم إبرام عقد.","13- One-click fraud happens when clicking a link that leads to a message claiming a contract has been concluded.",true),
+/*39*/ tf("١٤- التجسس المباشر هو سرقة كلمات المرور عن طريق البحث في المهملات.","14- Shoulder surfing is stealing passwords by searching the trash.",false),
+/*40*/ tf("١٥- التزوير يهدف إلى إنشاء بطاقات مزورة باستخدام بيانات بطاقات الائتمان المسروقة.","15- Skimming aims to create counterfeit cards using stolen credit card data.",true),
+/*41*/ tf("١٦- الهندسة الاجتماعية لا تعتمد على أي معرفة بعلم النفس البشري.","16- Social engineering does not depend on any knowledge of human psychology.",false),
+/*42*/ tf("١٧- التصيد (Phishing) يمكن أن يتم عبر رسائل البريد الإلكتروني المزيفة.","17- Phishing can be done through fake emails.",true),
+/*43*/ tf("١٨- سياسة أمن المعلومات تتضمن فقط المبادئ النظرية دون أي إجراءات تشغيلية.","18- An information security policy includes only theoretical principles without any operational procedures.",false),
+/*44*/ tf("١٩- انتحال الشخصية يمكن أن يتم عبر المكالمات الهاتفية.","19- Impersonation can be done through phone calls.",true),
+/*45*/ tf("٢٠- إجراءات مواجهة التهديدات تشمل فقط تثبيت برامج مكافحة الفيروسات.","20- Threat countermeasures include only installing antivirus programs.",false),
+/* السؤال الثالث: أكمل من بين القوسين (46-50) */
+/*46*/ ["١- التصيد (Phishing) يمكن أن يتم عبر ....... أو مواقع ويب مزيفة.","1- Phishing can be done through ....... or fake websites.",null,[4],{bank:true}],
+/*47*/ ["٢- فاتورة احتيالية هي فاتورة صادرة مقابل خدمة .......","2- A fraudulent bill is a bill issued for a ....... service.",null,[3],{bank:true}],
+/*48*/ ["٣- التلصص على الشاشة أو لوحة المفاتيح يسمى .......","3- Peeking at the screen or keyboard is called .......",null,[2],{bank:true}],
+/*49*/ ["٤- الاحتيال بنقرة واحدة يمكن أن يحدث عند النقر على رابط يؤدي إلى رسالة تدعي .......","4- One-click fraud can happen when clicking a link that leads to a message claiming .......",null,[1],{bank:true}],
+/*50*/ ["٥- السياسة الأساسية تصف المبادئ الأساسية وأمن المعلومات الخاصة بـ.......","5- The basic policy describes the basic principles and information security of .......",null,[0],{bank:true}],
+/* السؤال الرابع: اذكر المصطلح (51-60) */
+/*51*/ ["١- عملية إصدار فاتورة لشخص مقابل خدمة وهمية بهدف الاحتيال.","1- The process of issuing a bill to a person for a fake service in order to defraud.",['oneclick','billing','phishing','skim'],[1]],
+/*52*/ ["٢- احتيال يحدث عند النقر على رابط يؤدي تلقائياً إلى طلب دفع مبالغ.","2- A fraud that happens when clicking a link that automatically leads to a request to pay money.",['oneclick','billing','phishing','social'],[0]],
+/*53*/ ["٣- احتيال يستخدم مواقع ويب مزيفة للحصول على معلومات شخصية.","3- A fraud that uses fake websites to obtain personal information.",['social','phishing','skim','oneclick'],[1]],
+/*54*/ ["٤- طريقة احتيالية للحصول على المعلومات باستخدام علم النفس البشري.","4- A fraudulent way of obtaining information using human psychology.",['phishing','skim','social','dumpster'],[2]],
+/*55*/ ["٥- التظاهر بأنك شخص آخر للحصول على معلومات.","5- Pretending to be someone else to obtain information.",['shoulder','imperson','dumpster','phishing'],[1]],
+/*56*/ ["٦- التلصص على شاشة أو لوحة مفاتيح شخص لسرقة كلمات المرور.","6- Peeking at someone's screen or keyboard to steal passwords.",['dumpster','imperson','shoulder','skim'],[2]],
+/*57*/ ["٧- البحث في المهملات للحصول على معلومات سرية تم التخلص منها.","7- Searching the trash to obtain secret information that was thrown away.",['dumpster','shoulder','phishing','social'],[0]],
+/*58*/ ["٨- استخراج البيانات بشكل غير قانوني من بطاقة ائتمان أو خصم.","8- Illegally extracting data from a credit or debit card.",['phishing','billing','skim','imperson'],[2]],
+/*59*/ ["٩- مجموعة القواعد والإرشادات الأساسية التي تحدد كيفية حماية المعلومات.","9- The set of basic rules and guidelines that define how information is protected.",['standards','policy','basic','procs'],[1]],
+/*60*/ ["١٠- جزء من سياسة أمن المعلومات يحدد القواعد اللازمة لتطبيق السياسة عملياً.","10- A part of the information security policy that sets the rules needed to apply the policy in practice.",['basic','procs','standards','oprules'],[2]],
+/* السؤال الخامس: أكمل الفراغ (61-70) */
+/*61*/ ["١- البحث في المهملات للحصول على معلومات سرية يسمى .......","1- Searching the trash to obtain secret information is called .......",['dumpster','shoulder','skim','imperson'],[0]],
+/*62*/ ["٢- الاحتيال بنقرة واحدة يحدث عند النقر على رابط يؤدي تلقائياً إلى .......","2- One-click fraud happens when clicking a link that automatically leads to .......",[['طلب دفع مبالغ','a request to pay money'],['تحميل برنامج','downloading a program'],['تحديث النظام','updating the system'],['إغلاق الحساب','closing the account']],[0]],
+/*63*/ ["٣- التصيد (Phishing) يستخدم مواقع ويب مزيفة للحصول على .......","3- Phishing uses fake websites to obtain .......",[['معلومات شخصية','personal information'],['برامج مجانية','free programs'],['أجهزة جديدة','new devices'],['فواتير حقيقية','real bills']],[0]],
+/*64*/ ["٤- الهندسة الاجتماعية تعتمد على استغلال ....... للحصول على المعلومات.","4- Social engineering depends on exploiting ....... to obtain information.",[['علم النفس البشري','human psychology'],['الثغرات البرمجية','software vulnerabilities'],['سرعة الإنترنت','internet speed'],['أجهزة الكمبيوتر','computer hardware']],[0]],
+/*65*/ ["٥- انتحال الشخصية هو التظاهر بأنك ....... للحصول على معلومات.","5- Impersonation is pretending to be ....... to obtain information.",[['شخص آخر','someone else'],['مبرمج','a programmer'],['برنامج','a program'],['موقع ويب','a website']],[0]],
+/*66*/ ["٦- استخراج البيانات بشكل غير قانوني من بطاقة ائتمان يسمى .......","6- Illegally extracting data from a credit card is called .......",['phishing','skim','billing','dumpster'],[1]],
+/*67*/ ["٧- سياسة أمن المعلومات هي مجموعة من القواعد والإرشادات للحفاظ على .......","7- An information security policy is a set of rules and guidelines to maintain .......",[['أمن المعلومات','information security'],['سرعة الشبكة','network speed'],['شكل الموقع','the look of the website'],['عدد الموظفين','the number of employees']],[0]],
+/*68*/ ["٨- معايير الأمان تحدد القواعد اللازمة لتطبيق ....... عملياً.","8- Security standards set the rules needed to apply the ....... in practice.",[['السياسة الأساسية','the basic policy'],['التزوير','skimming'],['الاحتيال بنقرة واحدة','one-click fraud'],['انتحال الشخصية','impersonation']],[0]],
+/*69*/ ["٩- إجراءات التنفيذ وقواعد التشغيل تحدد الإجراءات بناءً على .......","9- Implementation procedures and operational rules define the procedures based on .......",[['الجمهور المستهدف والغرض المقصود','the target audience and the intended purpose'],['نوع الجهاز','the type of device'],['سرعة الإنترنت','internet speed'],['لون الشاشة','screen color']],[0]],
+/*70*/ ["١٠- التزوير (Skimming) يستخدم لإنشاء بطاقة ....... باستخدام بيانات بطاقات مسروقة.","10- Skimming is used to create a ....... card using stolen card data.",[['مزورة','counterfeit'],['أصلية','genuine'],['مجانية','free'],['قديمة','old']],[0]]
+];
+const BANK = [['المنظمة','the organization'],['إبرام عقد','the conclusion of a contract'],['التجسس المباشر','shoulder surfing'],['وهمية','fake'],['البريد الإلكتروني','email']];
+const KEYS5 = ['phishing','oneclick','skim','policy','social'];
+
+/* ============ ENGLISH FILE QUESTIONS (29) ============
+ [text, options, answerIdx[], {lbl}] */
+const M = (q,o,a)=>[q,o,a];
+const EQ = [
+ M("1. Fraudulent billing is a scam that ...............",["demands fake payment","sends ads","fixes errors","gives discounts"],[0]),
+ M("2. One-click fraud happens when a user ...............",["opens an app","clicks a fake link","enters a password","updates the software"],[1]),
+ M("3. Phishing is a method used to ...............",["create websites","clean storage","fix programs","steal personal data"],[3]),
+ M("4. Social engineering attacks rely on ...............",["human carelessness","human weakness","lack of awareness","all of them"],[3]),
+ M("5. Pretending to be another person to get information is called ...............",["skimming","phishing","impersonation","malware"],[2]),
+ M("6. Watching someone enter their password is called ...............",["shoulder surfing","skimming","cracking","hacking"],[0]),
+ M("7. Searching through garbage to get private data is called ...............",["dumpster diving","social networking","cracking","coding"],[0]),
+ M("8. Copying credit card information without permission is ...............",["phishing","skimming","spamming","both a and b"],[1]),
+ M("9. The basic rules for protecting data in an organization are called ...............",["privacy law","security policy","cyber rule","web guide"],[1]),
+ M("10. Which of the following is NOT a social engineering attack?",["Dumpster diving","Virus infection","Impersonation","Shoulder surfing"],[1]),
+ M("11. Fraudulent billing and one-click fraud both aim to ...............",["steal data","crash systems","spread viruses","steal money"],[3]),
+ M("12. Reading a company's papers from garbage is an example of ...............",["skimming","cracking","dumpster diving","hacking"],[2]),
+ M("13. Social engineering obtains information through ...............",["tricking people","encryption","programming","all of them"],[0]),
+ M("14. A company's written data protection rules are its ...............",["user's guide","web page","security policy","privacy law"],[2]),
+ tf1("1. Fraudulent billing asks for money for services never used.",true),
+ tf1("2. Phishing and one-click fraud are both examples of social engineering.",false),
+ tf1("3. Phishing steals data through fake websites or emails.",true),
+ tf1("4. Social engineering depends on hardware mistakes.",false),
+ tf1("5. Shoulder surfing means watching someone type a password.",true),
+ tf1("6. Dumpster diving is checking trash to get private data of others.",true),
+ tf1("7. Verifying the sender's identity before sharing sensitive data helps prevent impersonation attacks.",true),
+ tf1("8. Skimming is a legal way to collect card information.",false),
+ tf1("9. A security policy protects company information.",true),
+ tf1("10. Phishing and skimming are the same kind of cybercrime.",false),
+ tf1("11. Fraudulent billing always comes from real companies.",false),
+ tf1("12. Security policies help reduce the risk of data leaks.",true),
+ tf1("13. Social engineering only uses computer programs to attack systems.",false),
+ tf1("14. One-click fraud never asks users to pay money.",false),
+ tf1("15. Shoulder surfing and dumpster diving are both physical ways of stealing data.",true)
+];
+function tf1(q,ok){ return [q,["(✓) True","(✗) False"],[ok?0:1],{lbl:'none'}]; }
+
+/* group headings for English file */
+const EQ_GROUP = i => i<14 ? "Choose the correct answer" : "Put (✓) or (✗)";
+
+/* ============ NORMALIZE ============ */
+const LBL = {
+  ar:{def:['أ','ب','ج','د','هـ'],k:['أ','ب','ت','ث','ج'],n:['①','②','③','④'],none:['','']},
+  en:{def:['a','b','c','d','e'],k:['A','B','C','D','E'],n:['1','2','3','4'],none:['','']}
+};
+function ro(x){ return typeof x==='string' ? {ar:T[x][0],en:T[x][1]} : {ar:x[0],en:x[1]}; }
+function normA(i,lang){
+  const it=AQ[i]; const ex=it[4]||{};
+  let opts=it[2];
+  if(ex.keys) opts=ex.keys;
+  if(ex.bank) opts=BANK;
+  opts=opts.map(ro).map(o=>o[lang]);
+  const multi = it[3].length>1;
+  const hint = multi ? (lang==='ar'?'اختر أكثر من إجابة ثم اضغط «تأكيد»':'Choose more than one answer then press “Confirm”') : '';
+  return {q:it[lang==='ar'?0:1], ctx: ex.ctx? ex.ctx[lang==='ar'?0:1] : '', opts, lbl:LBL[lang][ex.lbl||'def'], ans:it[3], multi, hint};
+}
+function normE(i){
+  const it=EQ[i]; const ex=it[3]||{}; const multi=it[2].length>1;
+  return {q:it[0], ctx:'', opts:it[1], lbl:LBL.en[ex.lbl||'def'], ans:it[2], multi, hint:multi?'Choose more than one answer':'', group:EQ_GROUP(i)};
+}
+const allA = lang => AQ.map((_,i)=>normA(i,lang));
+const allE = () => EQ.map((_,i)=>normE(i));
+
+/* part practice sets (5 questions each) */
+const PART_AR = [[11,12,25,26,38],[0,14,15,17,18],[19,20,21,22,43]];
+const PART_EN = [[0,1,10,14,27],[2,4,5,6,7],[8,13,22,25,20]];
+
+/* ============ LESSON CONTENT ============ */
+const TERMS_TABLE = [
+ ['Phishing','التصيد الاحتيالي'],['Social engineering','الهندسة الاجتماعية'],['Impersonation','انتحال الهوية'],
+ ['Shoulder surfing','التجسس من فوق الكتف'],['Dumpster diving','البحث في القمامة'],['Skimming','نسخ بيانات البطاقة'],
+ ['Disguised','متنكر'],['Information security policy','سياسة أمن المعلومات'],['Fraudulent billing','الفوترة الاحتيالية'],
+ ['One-click fraud','احتيال بنقرة واحدة'],['Security standards','معايير الأمان'],['Implementation procedures','إجراءات التنفيذ'],
+ ['Operational rules','قواعد التشغيل']
+];
+const termsHTML = () => `<table class="terms">${TERMS_TABLE.map(r=>`<tr><td>${r[0]}</td><td>${r[1]}</td></tr>`).join('')}</table>`;
+
+const pyramid = (lang)=>{
+  const L = lang==='ar' ? [
+    ['السياسة الأساسية','الجزء الذي يوضح المبادئ العامة لأمن المعلومات، وأهداف المؤسسة في حماية البيانات، والتزام المنظمة بالحفاظ على السرية والأمان.','linear-gradient(135deg,#0ea5e9,#0369a1)','30%','70%','220px'],
+    ['معايير الأمان','القواعد الفنية والتنظيمية التي توضح كيف يتم تنفيذ سياسة الأمن عملياً.','linear-gradient(135deg,#ef4444,#b91c1c)','18%','82%','320px'],
+    ['إجراءات التنفيذ وقواعد التشغيل','الخطوات العملية والتعليمات التفصيلية بناءً على الجمهور المستهدف والغرض المقصود.','linear-gradient(135deg,#10b981,#047857)','6%','94%','420px']
+  ] : [
+    ['Basic Policy','Describes the organization\'s fundamental principles and declarations regarding information security.','linear-gradient(135deg,#0ea5e9,#0369a1)','30%','70%','220px'],
+    ['Security Standards','Set out the rules for putting the basic policy into practice.','linear-gradient(135deg,#ef4444,#b91c1c)','18%','82%','320px'],
+    ['Implementation Procedures and Operational Rules','Clearly define the necessary procedures based on the target audience and intended use.','linear-gradient(135deg,#10b981,#047857)','6%','94%','420px']
+  ];
+  return `<div class="pyr">${L.map(x=>`<div class="lvl"><div class="shape" style="--c1:${x[3]};--c2:${x[4]};width:${x[5]};max-width:100%;background:${x[2]}">${x[0]}</div><div class="desc">${x[1]}</div></div>`).join('')}</div>`;
+};
+
+const LESSON = {
+ ar:{
+  title:"التهديدات والتدابير المضادة في أمن المعلومات ③",
+  intro:`<div class="card"><h3><span class="ic">📌</span>عزيزي الطالب، تذكر:</h3>
+   <div class="intro">
+   <div class="def"><span class="tag d">التهديدات</span> هي أي مخاطر أو هجمات قد تؤدي إلى سرقة المعلومات أو تلفها أو تعطيل الأنظمة، مثل: <span class="key">الوصول غير المصرح به – الاختراق – البرمجيات الخبيثة – الجريمة الإلكترونية</span></div>
+   <div class="ex"><span class="tag e">التدابير المضادة</span> هي الوسائل والإجراءات المستخدمة للحماية من هذه التهديدات (أمن المعلومات) مثل: <span class="key">استخدام برامج مكافحة الفيروسات – إنشاء كلمات مرور قوية – المصادقة – النسخ الاحتياطي للبيانات – تحديث الأنظمة والتطبيقات باستمرار – جدار الحماية.</span></div></div></div>`,
+  parts:[
+   {tab:"① الاحتيال بالفواتير", body:`
+    <div class="card"><h3><span class="ic">🧾</span>الاحتيال بالفواتير</h3></div>
+    <div class="card"><h3><span class="ic">💸</span>١) فاتورة احتيالية (Fraudulent billing)</h3>
+     <div class="def"><span class="tag d">التعريف</span> هي عملية احتيال (خداع) يقوم فيها المحتال بإرسال <span class="key">فاتورة مزيفة</span> لشخص أو شركة مقابل خدمة أو منتج <span class="key">لم يتم استخدامه أو طلبه أصلًا</span>، وذلك بهدف الحصول على المال بشكل احتيالي (بطريقة غير قانونية).</div>
+     <div class="ex"><span class="tag e">مثال</span> قد تصلك رسالة أو فاتورة تطلب منك دفع اشتراك إنترنت أو برنامج لم تشترك فيه أساسًا.</div></div>
+    <div class="card"><h3><span class="ic">🖱️</span>٢) الاحتيال بنقرة واحدة (One-click fraud)</h3>
+     <div class="def"><span class="tag d">التعريف</span> هو نوع من الاحتيال الإلكتروني يحدث عندما يضغط المستخدم على <span class="key">رابط (URL)</span> في موقع ويب أو بريد إلكتروني، فيظهر له مباشرةً أنه وافق على عقد أو اشترك في خدمة، ثم يُطلب منه <span class="key">دفع مبلغ مالي كبير</span>.</div>
+     <div class="ex"><span class="tag e">مثال</span> يدخل شخص إلى موقع، ثم يضغط على زر أو رابط، فتظهر رسالة مثل: «تم تسجيل اشتراكك بنجاح، يجب دفع ٥٠٠ جنيه خلال ٢٤ ساعة». بينما هو في الحقيقة لم يقصد الاشتراك في أي خدمة.</div>
+     <div class="goal"><span class="tag g">الهدف</span> خداع المستخدمين وتخويفهم لدفع الأموال بسرعة وسرقة البيانات أو الأموال.</div>
+     <div class="ex"><span class="tag e">التدابير المضادة</span> عدم الضغط على الروابط المجهولة، والتأكد من مصدر الرسائل والفواتير، وتجاهل الرسائل المشبوهة وعدم إدخال بيانات شخصية فيها، والتحقق من العقود أو الاشتراكات قبل دفع المال.</div></div>
+    <div class="card"><h3><span class="ic">⭐</span>ملخص الجزء</h3><ul>
+     <li><span class="key">فاتورة احتيالية:</span> إصدار فاتورة لشخص مقابل خدمة وهمية لم يستخدمها أبداً بهدف الحصول على المال بشكل احتيالي.</li>
+     <li><span class="key">الاحتيال بنقرة واحدة:</span> النقر على رابط (URL) يؤدي تلقائياً إلى رسالة تدعي أنه تم إبرام عقد، يليها طلب دفع مبالغ.</li></ul></div>`},
+   {tab:"② الحصول غير المصرح به", body:`
+    <div class="card"><h3><span class="ic">🕵️</span>الحصول غير المصرح به على المعلومات</h3></div>
+    <div class="card"><h3><span class="ic">🎣</span>١) التصيد (Phishing)</h3>
+     <div class="def"><span class="tag d">التعريف</span> هو نوع من الاحتيال الإلكتروني يقوم فيه المهاجم بإنشاء <span class="key">موقع ويب مزيف</span>، ويتنكر على أنه مؤسسات مالية أو هيئات عامة ويرسل رسائل بريد إلكتروني تبدو وكأنها صادرة من جهة موثوقة مثل بنك أو شركة اتصالات بهدف خداع المستخدم ودفعه إلى إدخال معلوماته الشخصية مثل رموز PIN أو تفاصيل الحساب.</div>
+     <div class="ex"><span class="tag e">مثال</span> قد تصلك رسالة تقول: «تم إيقاف حسابك البنكي، اضغط هنا لتأكيد بياناتك». وعند الضغط على الرابط تفتح صفحة تشبه الموقع الحقيقي للبنك، لكنّها في الحقيقة موقع مزيف صُمم لسرقة بياناتك.</div></div>
+    <div class="card"><h3><span class="ic">🧠</span>٢) الهندسة الاجتماعية (Social engineering)</h3>
+     <div class="def"><span class="tag d">التعريف</span> هو أسلوب خداع يستخدمه المهاجم للحصول على معلومات سرية أو مهمة من الأشخاص، ليس عن طريق اختراق الأجهزة، بل عن طريق استغلال: <span class="key">ثقة الإنسان وقلة الوعي والخوف أو الفضول والإهمال</span>. أي أن المهاجم يخدع الشخص نفسيًا حتى يجعله يكشف المعلومات بنفسه.</div>
+     <p class="key" style="margin-top:8px">الطُرق المستخدمة للحصول على المعلومات بطريقة غير مشروعة في الهندسة الاجتماعية:</p></div>
+    <div class="card"><h3><span class="ic">🎭</span>① انتحال الشخصية (Impersonation)</h3>
+     <div class="def"><span class="tag d">التعريف</span> أن يتظاهر شخص بأنه شخص آخر موثوق به بهدف خداع الضحية والحصول على معلومات سرية.</div>
+     <div class="ex"><span class="tag e">مثال</span> قد يتصل شخص هاتفيًا ويدّعي أنه: موظف بنك، مدير شركة، موظف دعم فني، ثم يطلب كلمة المرور أو بيانات الحساب للحصول على معلومات.</div></div>
+    <div class="card"><h3><span class="ic">👀</span>② التجسس المباشر (Shoulder surfing)</h3>
+     <div class="def"><span class="tag d">التعريف</span> هو قيام شخص بالتلصص على شاشة الكمبيوتر أو الهاتف أو مراقبة لوحة مفاتيح شخص آخر أثناء الكتابة لمعرفة: كلمات المرور، رموز PIN، البيانات السرية.</div>
+     <div class="ex"><span class="tag e">مثال</span> شخص يقف خلفك أثناء إدخال الرقم السري في ماكينة الصراف أو على الهاتف.</div></div>
+    <div class="card"><h3><span class="ic">🗑️</span>③ البحث في المهملات (Dumpster diving)</h3>
+     <div class="def"><span class="tag d">التعريف</span> هو البحث داخل سلة المهملات أو الأوراق التي تم التخلص منها للحصول على معلومات سرية.</div>
+     <div class="ex"><span class="tag e">مثال</span> إلقاء أوراق تحتوي على بيانات حسابات دون تمزيقها، فيستغلها المحتال.</div></div>
+    <div class="card"><h3><span class="ic">💳</span>٣) التزوير (Skimming)</h3>
+     <div class="def"><span class="tag d">التعريف</span> عملية سرقة بيانات البطاقات البنكية (بطاقات الائتمان أو الخصم) بطريقة غير قانونية، ثم استخدام هذه البيانات لصنع بطاقة مزيفة أو تنفيذ عمليات سحب وشراء بدون علم صاحب البطاقة.</div>
+     <div class="ex"><span class="tag e">كيف يحدث التزوير؟</span><ul>
+      <li>يقوم المحتال بتركيب جهاز صغير سرًّا يسمى «Skimmer» على: ماكينات الصراف الآلي (ATM) أو أجهزة الدفع الإلكتروني. هذا الجهاز يقوم بنسخ بيانات البطاقة عند استخدامها.</li>
+      <li>أو يقوم المحتال بتركيب كاميرا صغيرة أو لوحة مفاتيح مزيفة لمعرفة الرقم السري (PIN).</li></ul></div>
+     <div class="goal"><span class="tag g">بعد سرقة البيانات</span> يقوم المحتال بإنشاء بطاقة مزورة، أو سحب الأموال من الحساب، أو إجراء عمليات شراء غير قانونية.</div></div>`},
+   {tab:"③ سياسة أمن المعلومات", body:`
+    <div class="card"><h3><span class="ic">📜</span>سياسة أمن المعلومات (Information Security Policy)</h3>
+     <div class="def"><span class="tag d">التعريف</span> هي مجموعة من القوانين والتعليمات والإرشادات التي تضعها المؤسسة أو الشركة لحماية المعلومات والبيانات من: <span class="key">السرقة، الاختراق، التعديل، الفقدان أو الاستخدام غير المصرح به</span>. أي أنها تُحدد كيفية التعامل مع المعلومات بشكل آمن داخل المؤسسة.</div></div>
+    <div class="card"><h3><span class="ic">🧱</span>مكونات سياسة أمن المعلومات</h3>${pyramid('ar')}</div>
+    <div class="card"><h3><span class="ic">①</span>السياسة الأساسية</h3>
+     <div class="def"><span class="tag d">هي الجزء الذي يوضح</span><ul><li>المبادئ العامة لأمن المعلومات.</li><li>أهداف المؤسسة في حماية البيانات.</li><li>التزام المنظمة بالحفاظ على السرية والأمان.</li></ul></div>
+     <div class="ex"><span class="tag e">مثال</span> «تلتزم المؤسسة بحماية بيانات العملاء ومنع الوصول غير المصرح به إليها».</div></div>
+    <div class="card"><h3><span class="ic">②</span>معايير الأمان</h3>
+     <div class="def"><span class="tag d">هي</span> القواعد الفنية والتنظيمية التي توضح كيف يتم تنفيذ سياسة الأمن عمليًا، مثل: تشفير البيانات – استخدام كلمات مرور قوية – تحديث الأنظمة باستمرار – تحديد صلاحيات المستخدمين.</div></div>
+    <div class="card"><h3><span class="ic">③</span>إجراءات التنفيذ وقواعد التشغيل</h3>
+     <div class="def"><span class="tag d">هي</span> الخطوات العملية والتعليمات التفصيلية التي توضح: ماذا يفعل المستخدم؟ – كيف يتصرف عند حدوث مشكلة؟ – من المسؤول عن كل إجراء؟</div>
+     <div class="ex"><span class="tag e">مثال</span><ul><li>خطوات الإبلاغ عن محاولة اختراق.</li><li>طريقة النسخ الاحتياطي للبيانات.</li><li>كيفية إنشاء حسابات المستخدمين.</li></ul></div></div>
+    <div class="card"><h3><span class="ic">🎯</span>الهدف من سياسة أمن المعلومات</h3><ul>
+     <li>حماية بيانات المؤسسة.</li><li>تقليل المخاطر والهجمات الإلكترونية.</li><li>تنظيم استخدام الأنظمة والأجهزة.</li><li>الحفاظ على سرية المعلومات وسلامتها.</li></ul>
+     <p style="margin-top:8px">وتُعد سياسة أمن المعلومات جزءًا أساسيًا من مجال <span class="key">الأمن السيبراني</span> داخل المؤسسات والشركات.</p></div>`},
+   {tab:"📖 المصطلحات", body:`<div class="card"><h3><span class="ic">📖</span>أهم الكلمات والمصطلحات</h3>${termsHTML()}</div>`}
+  ]},
+ en:{
+  title:"Threats and Countermeasures in Information Security (3)",
+  intro:`<div class="card"><h3><span class="ic">📌</span>Before we start</h3>
+   <div class="intro">
+   <div class="def"><span class="tag d">Threats</span> Any dangers or attacks that may lead to information theft, damage, or system disruption, such as unauthorized access, hacking, malware and cybercrime.</div>
+   <div class="ex"><span class="tag e">Countermeasures</span> The ways and actions used to protect information from these threats, such as antivirus software, strong passwords, authentication, backups, updates and firewalls.</div></div></div>`,
+  parts:[
+   {tab:"① Fraudulent Billing", body:`
+    <div class="card"><h3><span class="ic">🧾</span>Fraudulent Billing</h3></div>
+    <div class="card"><h3><span class="ic">💸</span>1) Fraudulent Billing</h3>
+     <div class="def"><ul><li>It is a <span class="key">scam</span> in which a person receives a <span class="key">bill</span> for a service they <span class="key">never used</span>.</li>
+     <li>The purpose is to <span class="key">fraudulently obtain money</span> from the recipient.</li></ul></div></div>
+    <div class="card"><h3><span class="ic">🖱️</span>2) One-Click Fraud</h3>
+     <div class="def"><ul><li>It is a scam where <span class="key">clicking a URL</span> in a website or email <span class="key">automatically</span> triggers a message pretending a <span class="key">contract has been concluded</span>.</li>
+     <li>It is followed by a <span class="key">payment demand</span>.</li></ul></div></div>`},
+   {tab:"② Unauthorized Acquisition", body:`
+    <div class="card"><h3><span class="ic">🕵️</span>Unauthorized Acquisition of Information</h3></div>
+    <div class="card"><h3><span class="ic">🎣</span>1) Phishing</h3>
+     <div class="def"><ul><li>It is a scam that uses <span class="key">fake websites disguised</span> as financial institutions or public organizations.</li>
+     <li>It aims to <span class="key">steal</span> personal information, such as PINs or account details.</li></ul></div></div>
+    <div class="card"><h3><span class="ic">🧠</span>2) Social Engineering</h3>
+     <div class="def">It is a method of fraudulently obtaining information by exploiting:<ul><li>Human psychology</li><li>Carelessness</li><li>Lack of awareness</li></ul></div></div>
+    <div class="card"><h3><span class="ic">🧩</span>Examples of Social Engineering</h3>
+     <div class="def"><span class="tag d">1 Impersonation</span> It's pretending to be another person.</div>
+     <div class="ex"><span class="tag e">EX</span> Making a phone call as someone else to obtain information.</div>
+     <div class="def"><span class="tag d">2 Shoulder Surfing</span> It's peeking over someone's shoulder to steal passwords or PIN code.</div>
+     <div class="def"><span class="tag d">3 Dumpster Diving</span> It's searching through trash to obtain discarded confidential information.</div></div>
+    <div class="card"><h3><span class="ic">💳</span>3) Skimming</h3>
+     <div class="def"><ul><li>It is the act of illegally extracting data from someone's credit or debit card.</li>
+     <li>The stolen data can then be used to create <span class="key">counterfeit cards</span>.</li></ul></div></div>`},
+   {tab:"③ Security Policy", body:`
+    <div class="card"><h3><span class="ic">📜</span>Information Security Policy</h3>
+     <div class="def">It is a <span class="key">set of rules and guidelines</span> established by a company or an organization to maintain and protect information security.</div></div>
+    <div class="card"><h3><span class="ic">🧱</span>The three levels of the policy</h3>${pyramid('en')}</div>`},
+   {tab:"📖 Key Terms", body:`<div class="card"><h3><span class="ic">📖</span>Key words and terms</h3>${termsHTML()}</div>`}
+  ]}
+};
+
+/* ============ AUDIO ============ */
+let AC=null;
+function ac(){ if(!AC){ try{AC=new (window.AudioContext||window.webkitAudioContext)();}catch(e){} } if(AC&&AC.state==='suspended')AC.resume(); return AC; }
+function tone(f,t0,d,type='sine',v=.25,f2){
+  const c=ac(); if(!c)return; const o=c.createOscillator(), g=c.createGain();
+  o.type=type; o.frequency.setValueAtTime(f,c.currentTime+t0); if(f2)o.frequency.linearRampToValueAtTime(f2,c.currentTime+t0+d);
+  g.gain.setValueAtTime(0.0001,c.currentTime+t0); g.gain.exponentialRampToValueAtTime(v,c.currentTime+t0+.02); g.gain.exponentialRampToValueAtTime(0.0001,c.currentTime+t0+d);
+  o.connect(g); g.connect(c.destination); o.start(c.currentTime+t0); o.stop(c.currentTime+t0+d+.05);
+}
+const sfx={
+  right(){ [523,659,784,1047].forEach((f,i)=>tone(f,i*.09,.25,'triangle',.28)); },
+  wrong(){ tone(220,0,.35,'sawtooth',.22,110); tone(150,.18,.4,'square',.15,80); },
+  click(){ tone(700,0,.06,'sine',.15); },
+  win(){ [523,659,784,1047,784,1047,1319].forEach((f,i)=>tone(f,i*.13,.3,'triangle',.3)); },
+  lose(){ [392,349,330,262].forEach((f,i)=>tone(f,i*.2,.35,'sine',.25)); }
+};
+
+/* ============ EFFECTS ============ */
+function burst(list,n){
+  for(let i=0;i<n;i++){
+    const s=document.createElement('span'); s.className='emoji-burst'; s.textContent=list[i%list.length];
+    s.style.left=(30+Math.random()*40)+'vw'; s.style.top=(40+Math.random()*20)+'vh';
+    s.style.setProperty('--dx',(Math.random()*700-350)+'px'); s.style.setProperty('--dy',(-Math.random()*450-60)+'px');
+    document.body.appendChild(s); setTimeout(()=>s.remove(),1700);
+  }
+}
+let cf={p:[],run:false};
+function confetti(n=140){
+  const cv=document.getElementById('confetti'); cv.width=innerWidth; cv.height=innerHeight; const c=cv.getContext('2d');
+  const cols=['#22d3ee','#fbbf24','#22c55e','#f472b6','#6366f1','#ef4444'];
+  for(let i=0;i<n;i++) cf.p.push({x:innerWidth/2,y:innerHeight*.45,vx:(Math.random()-.5)*16,vy:-Math.random()*15-3,g:.35,s:6+Math.random()*8,c:cols[i%6],r:Math.random()*6,vr:(Math.random()-.5)*.4,l:110+Math.random()*60});
+  if(cf.run)return; cf.run=true;
+  (function loop(){
+    c.clearRect(0,0,cv.width,cv.height);
+    cf.p=cf.p.filter(p=>p.l>0);
+    cf.p.forEach(p=>{p.x+=p.vx;p.y+=p.vy;p.vy+=p.g;p.r+=p.vr;p.l--;c.save();c.translate(p.x,p.y);c.rotate(p.r);c.fillStyle=p.c;c.globalAlpha=Math.min(1,p.l/40);c.fillRect(-p.s/2,-p.s/2,p.s,p.s*.6);c.restore();});
+    if(cf.p.length)requestAnimationFrame(loop); else {cf.run=false;c.clearRect(0,0,cv.width,cv.height);}
+  })();
+}
+(function floaters(){
+  const box=document.getElementById('floaters'); const ic=['🔒','🛡️','🔑','💳','📧','🖥️','🧾','🕵️','📱','🔐'];
+  for(let i=0;i<22;i++){ const s=document.createElement('span'); s.textContent=ic[i%ic.length];
+    s.style.left=Math.random()*100+'%'; s.style.fontSize=(24+Math.random()*44)+'px';
+    s.style.animationDuration=(18+Math.random()*22)+'s'; s.style.animationDelay=(-Math.random()*30)+'s'; box.appendChild(s); }
+})();
+
+/* ============ APP STATE / VIEWS ============ */
+const app=document.getElementById('app');
+let studentName='';
+let view={name:'home',lang:'ar',part:0};
+
+function home(){
+  view={name:'home'}; document.documentElement.dir='rtl'; window.scrollTo(0,0);
+  app.innerHTML=`
+  <div class="topbar">${logo()}<span class="pill" style="pointer-events:none">الصف الأول الثانوي • ICT • الوحدة الثالثة</span></div>
+  <div class="hero"><span class="shield">🛡️</span>
+    <span class="unit">الدرس الثالث • Lesson 3</span>
+    <h1>التهديدات والتدابير المضادة في أمن المعلومات ③</h1>
+    <h2>Threats and Countermeasures in Information Security (3)</h2></div>
+  <div class="section-title">📚 الدرس التفاعلي • Interactive Lesson</div>
+  <div class="bigbtns">
+    <button class="bigbtn b-ar" onclick="openLesson(0)" style="grid-column:1/-1">📘📗 الدرس بالعربية والإنجليزية معاً<small>Lesson in Arabic and English side by side • شرح كامل + ٥ أسئلة لكل جزء</small></button>
+  </div>
+  <div class="section-title">🏆 الاختبار النهائي • Final Exam</div>
+  <div class="bigbtns">
+    <button class="bigbtn b-ex1" onclick="startExam('ar')">📝 الاختبار بالعربية<small>كل أسئلة الملف العربي (${AQ.length} سؤال)</small></button>
+    <button class="bigbtn b-ex2" onclick="startExam('en_tr')">📝 Exam in English<small>All the Arabic file questions translated (${AQ.length} questions)</small></button>
+    <button class="bigbtn b-ex3" onclick="startExam('en_file')">📝 English Exam (English file)<small>All the English file questions (${EQ.length} questions)</small></button>
+  </div>
+  <div class="foot">منصة محترف • Mohtarf Platform — يتم إرسال نتيجة الاختبار إلى واتساب المدرس</div>`;
+}
+
+function openLesson(part=0){
+  view={name:'lesson',part}; window.scrollTo(0,0);
+  const A=LESSON.ar, E=LESSON.en; document.documentElement.dir='rtl';
+  const last = part===A.parts.length-1;
+  const body = last
+    ? `<div class="card"><h3><span class="ic">📖</span>أهم الكلمات والمصطلحات • Key words and terms</h3>${termsHTML()}</div>`
+    : `${part===0?`<div class="dual"><div class="col" dir="rtl">${A.intro}</div><div class="col" dir="ltr">${E.intro}</div></div>`:''}
+       <div class="dual"><div class="col" dir="rtl"><div class="colhead a">🇪🇬 العربية</div>${A.parts[part].body}</div>
+       <div class="col" dir="ltr"><div class="colhead e">🇬🇧 English</div>${E.parts[part].body}</div></div>`;
+  app.innerHTML=`
+  <div class="lbar"><div class="row">
+    <button class="pill" onclick="home()">🏠 الرئيسية • Home</button>${logo()}</div>
+    <div class="tabs">${A.parts.map((x,i)=>`<button class="pill ${i===part?'on':''}" onclick="openLesson(${i})">${x.tab}<small>${E.parts[i].tab}</small></button>`).join('')}</div></div>
+  <div class="hero" style="padding-top:6px"><h1 style="font-size:1.8rem;margin:4px 0">${A.title}</h1><h2 style="font-size:1.2rem">${E.title}</h2></div>
+  ${body}
+  ${last?'':`
+  <div class="practice"><h4>✍️ اختبر نفسك في هذا الجزء (٥ أسئلة) • Test yourself (5 questions)</h4>
+    <div class="bigbtns">
+      <button class="bigbtn b-ar" onclick="startPart(${part},'ar')">🇪🇬 أسئلة بالعربية<small>من الملف العربي</small></button>
+      <button class="bigbtn b-en" onclick="startPart(${part},'en')">🇬🇧 Questions in English<small>from the English file</small></button></div></div>`}
+  <div style="display:flex;gap:10px;justify-content:space-between;margin-top:14px;flex-wrap:wrap">
+    ${part>0?`<button class="pill" onclick="openLesson(${part-1})">▶ السابق • Previous</button>`:'<span></span>'}
+    ${!last?`<button class="pill on" onclick="openLesson(${part+1})">التالي • Next ◀</button>`:`<button class="pill on" onclick="home()">🏆 الاختبار النهائي • Final exam</button>`}
+  </div>
+  <div class="foot">Mohtarf • منصة محترف</div>`;
+}
+
+/* ============ QUIZ ENGINE ============ */
+let Q=null;
+const quizEl=document.getElementById('quiz'), qwrap=document.getElementById('qwrap');
+
+function startPart(part,lang){
+  const qs = lang==='ar' ? PART_AR[part].map(i=>normA(i,'ar')) : PART_EN[part].map(i=>normE(i));
+  const names = lang==='ar' ? ['الاحتيال بالفواتير','الحصول غير المصرح به على المعلومات','سياسة أمن المعلومات'] : ['Fraudulent Billing','Unauthorized Acquisition of Information','Information Security Policy'];
+  runQuiz({qs,lang,exam:false,title:(lang==='ar'?'أسئلة: ':'Questions: ')+names[part],examKey:'part'+part+lang});
+}
+function startExam(kind){
+  let qs,lang,title;
+  if(kind==='ar'){qs=allA('ar');lang='ar';title='الاختبار النهائي بالعربية';}
+  else if(kind==='en_tr'){qs=allA('en');lang='en';title='Final Exam in English (translated from the Arabic file)';}
+  else {qs=allE();lang='en';title='English Final Exam (English file)';}
+  askName(lang,()=>runQuiz({qs,lang,exam:true,title,examKey:kind}));
+}
+function askName(lang,cb){
+  const ar=lang==='ar'; ac(); sfx.click();
+  document.documentElement.dir=ar?'rtl':'ltr';
+  qwrap.innerHTML=`<div class="qtop"><button class="xbtn" onclick="closeQuiz()">✕ ${ar?'إغلاق':'Close'}</button>${logo()}</div>
+  <div class="qbox namebox"><div style="font-size:4rem">✍️</div>
+   <div class="qtext">${ar?'اكتب اسمك أولاً قبل بدء الاختبار':'Write your name before starting the exam'}</div>
+   <input id="nm" type="text" maxlength="60" autocomplete="name" placeholder="${ar?'الاسم بالكامل':'Full name'}" value="${studentName.replace(/"/g,'')}">
+   <div id="nmerr" class="qhint"></div>
+   <button class="nextbtn" id="go">${ar?'ابدأ الاختبار 🚀':'Start the exam 🚀'}</button></div>`;
+  quizEl.classList.add('show'); document.body.style.overflow='hidden';
+  const inp=document.getElementById('nm'); inp.focus();
+  const go=()=>{ const v=inp.value.trim(); if(v.length<2){ document.getElementById('nmerr').textContent=ar?'من فضلك اكتب اسمك':'Please write your name'; sfx.wrong(); return;} studentName=v; sfx.click(); cb(); };
+  document.getElementById('go').onclick=go; inp.onkeydown=e=>{if(e.key==='Enter')go();};
+}
+function closeQuiz(){ quizEl.classList.remove('show'); document.body.style.overflow=''; Q=null; }
+
+function runQuiz(cfg){
+  Q={...cfg,i:0,score:0,wrongList:[],done:false,sel:new Set(),locked:false};
+  document.documentElement.dir=Q.lang==='ar'?'rtl':'ltr';
+  quizEl.classList.add('show'); document.body.style.overflow='hidden'; quizEl.scrollTop=0; ac();
+  showQ();
+}
+const OKMSG={ar:['أحسنت! 🎉','ممتاز! 👏','إجابة صحيحة! ⭐','رائع جداً! 🌟','برافو عليك! 🥳'],en:['Well done! 🎉','Excellent! 👏','Correct! ⭐','Great job! 🌟','Bravo! 🥳']};
+const NOMSG={ar:['إجابة خاطئة','حاول مرة أخرى في السؤال القادم','لا بأس، تعلّم من الخطأ'],en:['Wrong answer','Try again on the next one','No worries, learn from it']};
+const pick=a=>a[Math.floor(Math.random()*a.length)];
+
+function showQ(){
+  const ar=Q.lang==='ar', q=Q.qs[Q.i], n=Q.qs.length;
+  Q.sel=new Set(); Q.locked=false;
+  qwrap.innerHTML=`
+  <div class="qtop"><button class="xbtn" onclick="if(confirm('${ar?'هل تريد إنهاء الاختبار؟':'Quit the quiz?'}'))closeQuiz()">✕</button><div class="qtitle">${Q.title}</div>${logo()}</div>
+  <div class="prog"><i style="width:${(Q.i/n)*100}%"></i></div>
+  <div class="qstats"><span>${ar?'السؤال':'Question'} ${Q.i+1} / ${n}</span><span>⭐ ${Q.score}</span></div>
+  <div class="qbox" id="qbox">
+    ${q.group?`<div class="qhint" style="color:var(--cyan)">${q.group}</div>`:''}
+    <span class="qnum">${ar?'سؤال':'Q'} ${Q.i+1}</span>
+    ${q.hint?`<div class="qhint">👉 ${q.hint}</div>`:''}
+    ${q.ctx?`<div class="qctx">${q.ctx}</div>`:''}
+    <div class="qtext">${q.q}</div>
+    <div class="opts">${q.opts.map((o,i)=>`<button class="opt" data-i="${i}" onclick="pickOpt(${i})">${q.lbl[i]?`<span class="lb">${q.lbl[i]}</span>`:''}<span>${o}</span></button>`).join('')}</div>
+    <div id="fbslot"></div>
+  </div>`;
+  quizEl.scrollTop=0;
+}
+function pickOpt(i){
+  if(Q.locked)return; const q=Q.qs[Q.i]; sfx.click();
+  if(!q.multi){ Q.sel=new Set([i]); return grade(); }
+  Q.sel.has(i)?Q.sel.delete(i):Q.sel.add(i);
+  document.querySelectorAll('.opt').forEach(b=>b.classList.toggle('sel',Q.sel.has(+b.dataset.i)));
+  let c=document.getElementById('cf');
+  if(!c){ c=document.createElement('button'); c.id='cf'; c.className='confirm'; c.textContent=Q.lang==='ar'?'✔ تأكيد الإجابة':'✔ Confirm answer'; c.onclick=grade; document.getElementById('fbslot').appendChild(c); }
+}
+function grade(){
+  if(Q.locked)return; const q=Q.qs[Q.i], ar=Q.lang==='ar';
+  if(q.multi && Q.sel.size===0)return;
+  Q.locked=true;
+  const a=new Set(q.ans), ok = a.size===Q.sel.size && [...a].every(x=>Q.sel.has(x));
+  document.querySelectorAll('.opt').forEach(b=>{ const i=+b.dataset.i; b.disabled=true; b.classList.remove('sel');
+    if(a.has(i)) b.classList.add('right'); else if(Q.sel.has(i)) b.classList.add('wrong'); });
+  const box=document.getElementById('qbox'); const slot=document.getElementById('fbslot'); slot.innerHTML='';
+  if(ok){ Q.score++; sfx.right(); box.classList.add('glow'); burst(['🎉','😀','⭐','🌟','👏','🥳'],10); confetti(60);
+    slot.innerHTML=`<div class="fb ok"><span class="em">😃</span><span>${pick(OKMSG[Q.lang])}</span></div>`;
+  } else { Q.wrongList.push(Q.i+1); sfx.wrong(); box.classList.add('shake'); burst(['😢','❌','😞'],6);
+    const right=[...a].map(i=>(q.lbl[i]?q.lbl[i]+' ) ':'')+q.opts[i]).join(ar?' ، ':' ; ');
+    slot.innerHTML=`<div class="fb no"><span class="em">😢</span><span>${pick(NOMSG[Q.lang])}<br><small style="font-weight:700">${ar?'الإجابة الصحيحة:':'Correct answer:'} ${right}</small></span></div>`;
+  }
+  const last=Q.i===Q.qs.length-1;
+  const nb=document.createElement('button'); nb.className='nextbtn';
+  nb.textContent = last ? (ar?'🏁 عرض النتيجة':'🏁 See the result') : (ar?'السؤال التالي ◀':'Next question ▶');
+  nb.onclick=()=>{ sfx.click(); if(last)finish(); else {Q.i++; showQ();} };
+  slot.appendChild(nb); setTimeout(()=>nb.scrollIntoView({behavior:'smooth',block:'center'}),250);
+}
+function finish(){
+  const ar=Q.lang==='ar', n=Q.qs.length, pct=Math.round(Q.score/n*100);
+  const stars = pct>=90?5:pct>=75?4:pct>=60?3:pct>=40?2:1;
+  const face = pct>=90?'🏆':pct>=75?'😄':pct>=60?'🙂':pct>=40?'😐':'😢';
+  const msg = pct>=90 ? (ar?'مستوى ممتاز! أنت محترف حقاً':'Outstanding! You are a real pro') : pct>=75 ? (ar?'جيد جداً، استمر':'Very good, keep going') : pct>=60 ? (ar?'جيد، راجع الأخطاء':'Good, review your mistakes') : (ar?'راجع الدرس وحاول مرة أخرى 💪':'Review the lesson and try again 💪');
+  if(pct>=60){ sfx.win(); confetti(220); burst(['🎉','🏆','⭐','🥳'],14);} else sfx.lose();
+  let wa='';
+  if(Q.exam){
+    const lines=[`منصة محترف - Mohtarf`,`الاسم / Name: ${studentName}`,`الدرس / Lesson: أمن المعلومات ③ - Information Security (3) - الصف الأول الثانوي`,`الاختبار / Exam: ${Q.title}`,`النتيجة / Score: ${Q.score} / ${n} (${pct}%)`, Q.wrongList.length?`الأسئلة الخاطئة / Wrong: ${Q.wrongList.join(', ')}`:`لا توجد أخطاء / No mistakes ✅`];
+    wa=`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(lines.join('\n'))}`;
+  }
+  qwrap.innerHTML=`
+  <div class="qtop"><button class="xbtn" onclick="closeQuiz()">✕</button><div class="qtitle">${Q.title}</div>${logo()}</div>
+  <div class="qbox res">
+    ${studentName?`<div class="qtext" style="margin:0">${ar?'الطالب:':'Student:'} ${studentName.replace(/</g,'&lt;')}</div>`:''}
+    <div class="big">${face}</div>
+    <div class="score">${Q.score} / ${n} &nbsp; (${pct}%)</div>
+    <div class="stars">${'⭐'.repeat(stars)}${'☆'.repeat(5-stars)}</div>
+    <div class="msg">${msg}</div>
+    ${Q.wrongList.length?`<div class="wrongs">${ar?'أرقام الأسئلة التي أخطأت فيها:':'Questions you missed:'} <b>${Q.wrongList.join(' ، ')}</b></div>`:`<div class="msg" style="color:var(--green)">${ar?'لا توجد أخطاء! ✅':'No mistakes! ✅'}</div>`}
+    <div class="actions">
+      ${Q.exam?`<a class="nextbtn wa" style="text-decoration:none;margin:0" href="${wa}" target="_blank" rel="noopener">📲 ${ar?'إرسال النتيجة إلى واتساب':'Send the result to WhatsApp'}</a>`:''}
+      <button class="nextbtn" style="margin:0" onclick="const c={...Q};runQuiz({qs:c.qs,lang:c.lang,exam:c.exam,title:c.title,examKey:c.examKey})">🔁 ${ar?'إعادة المحاولة':'Try again'}</button>
+      <button class="confirm" style="margin:0" onclick="closeQuiz();home()">🏠 ${ar?'الرئيسية':'Home'}</button>
+    </div>
+  </div>`;
+  quizEl.scrollTop=0;
+}
+
+home();
+</script>
+</body>
+</html>
